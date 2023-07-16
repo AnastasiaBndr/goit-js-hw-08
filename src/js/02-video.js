@@ -7,7 +7,9 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 let savedTime = storage.getItem("videoplayer-current-time");
-player.setCurrentTime(savedTime);
+if (savedTime !== null && !isNaN(parseFloat(savedTime))) {
+    player.setCurrentTime(savedTime);
+  }
 
 player.on('timeupdate', _(timeUpdatingCounter, 1000));
 
