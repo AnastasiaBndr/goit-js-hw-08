@@ -7,37 +7,23 @@ import { galleryItems } from './gallery-items';
 const gallery = document.querySelector(".gallery");
 
 const markup=galleryItems.map(({original, preview,description})=>{
-    const li = document.createElement("li");
-    const img = document.createElement("img");
-    const a = document.createElement("a");
-
-    li.className="gallery__item";
-    a.className="gallery__link";
-    img.className='gallery__image';
-
-    a.href=original;
-    a.setAttribute('onClick', "return false");
-    img.src=preview;
-    img.alt=description;
-    img.dataset.source=original;
-
-    a.appendChild(img);
-    li.appendChild(a);
     
-    return li.outerHTML;
+    return `<li class="gallery__item"><a class="gallery__link" href="${original}" 
+    onclick="return false"><img class="gallery__image" src="${preview}" 
+    alt="${description}" data-source="${original}"></a></li>`
 })
 
 gallery.insertAdjacentHTML("beforeend",markup.join(""));
 
 gallery.addEventListener("click", onClick);
 
-let lightbox=null;
+let lightbox=null; // не прибирала цей рядок, бо навіть якщо роблю "const lightbox=newSimpleLightBox" у функції, створюється поверх нова сутність і накладається на попередню
 function onClick(evt){
 
     if (lightbox !== null) {
         lightbox.parentNode.remove();
         lightbox = null;
-      }
+      } // затираю попередню сутність щоб не було накладання. Інакше щось ніяк не виходить :(
     
     lightbox = new SimpleLightbox('.gallery a',{
         captions: true,
@@ -47,8 +33,8 @@ function onClick(evt){
         CaptionDelay:'250ms'});
         
 
-    function keyPress(evtKey){
+    function keyPress(evtKey){ //без цього esc не працює 💀
         if(evtKey.key==="Escape")
-        instance.close();
+        instance.destroy(); 
     }
 }
