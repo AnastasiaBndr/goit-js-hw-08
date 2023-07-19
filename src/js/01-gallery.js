@@ -15,26 +15,10 @@ const markup=galleryItems.map(({original, preview,description})=>{
 
 gallery.insertAdjacentHTML("beforeend",markup.join(""));
 
-gallery.addEventListener("click", onClick);
-
-let lightbox=null; // не прибирала цей рядок, бо навіть якщо роблю "const lightbox=newSimpleLightBox" у функції, створюється поверх нова сутність і накладається на попередню
-function onClick(evt){
-
-    if (lightbox !== null) {
-        lightbox.parentNode.remove();
-        lightbox = null;
-      } // затираю попередню сутність щоб не було накладання. Інакше щось ніяк не виходить :(
-    
-    lightbox = new SimpleLightbox('.gallery a',{
+    const lightbox = new SimpleLightbox('.gallery a',{
         captions: true,
         captionsData: 'alt', 
         captionSelector:'img',
         captionPosition:'outside', 
         CaptionDelay:'250ms'});
         
-
-    function keyPress(evtKey){ //без цього esc не працює 💀
-        if(evtKey.key==="Escape")
-        instance.destroy(); 
-    }
-}
