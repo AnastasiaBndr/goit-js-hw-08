@@ -1,5 +1,4 @@
-import { images } from './gallery-items';
-import * as basicLightbox from 'basiclightbox'
+import { images } from './gallery-items.js';
     
 const gallery = document.querySelector('.gallery');
 
