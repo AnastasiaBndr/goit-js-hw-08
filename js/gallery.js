@@ -21,7 +21,8 @@ gallery.insertAdjacentHTML("beforeend", markup.join(""));
 const handleOnCkick = e => {
     e.preventDefault();
 
-    const image = e.target;
+  const image = e.target;
+  if (image.tagName === 'IMG') {
     const instance = basicLightbox.create(`<div><img class="image-backdrop" src=${image.getAttribute('data-source')} alt=${image.alt}/></div>`, {
         onShow: (instance) => {
             instance.element().querySelector('div').onclick = (e) => {
@@ -31,6 +32,8 @@ const handleOnCkick = e => {
         }
     });
     instance.show();
+  }
+    
 }
 
 gallery.addEventListener("click", handleOnCkick);
